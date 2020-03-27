@@ -23,6 +23,8 @@ namespace CourseLibrary.API.Profiles
                 dest => dest.Age,
                 opt => opt.MapFrom(src => DateTime.UtcNow.Year - src.DateOfBirth.Year)
            );
+
+            CreateMap<AuthorForCreationDto, Author>();
         }
     }
 }
