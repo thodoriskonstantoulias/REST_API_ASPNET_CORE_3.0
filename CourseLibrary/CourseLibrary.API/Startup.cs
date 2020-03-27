@@ -44,6 +44,7 @@ namespace CourseLibrary.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            //We can put an else here if we want to show a message to the user in the Production
 
             app.UseRouting();
 

@@ -22,12 +22,14 @@ namespace CourseLibrary.API.Controllers
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        //We can use HEAD request -- same as GET -- but without a response body -- just for information purposes
         [HttpGet]
+        [HttpHead]
         public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
         {
             var authorsFromRepo = _courseLibraryRepository.GetAuthors();
-            //Map authors to Dto with Automapper        
 
+            //Map authors to Dto with Automapper        
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo)); 
         }
 
