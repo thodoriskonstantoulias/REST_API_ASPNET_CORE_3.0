@@ -26,9 +26,9 @@ namespace CourseLibrary.API.Controllers
         //We can also filter the results with query strings
         [HttpGet]
         [HttpHead]
-        public ActionResult<IEnumerable<AuthorDto>> GetAuthors(string mainCategory)
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors(string mainCategory, string searchQuery)
         {
-            var authorsFromRepo = _courseLibraryRepository.GetAuthors(mainCategory);
+            var authorsFromRepo = _courseLibraryRepository.GetAuthors(mainCategory, searchQuery);
 
             //Map authors to Dto with Automapper         
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo)); 
