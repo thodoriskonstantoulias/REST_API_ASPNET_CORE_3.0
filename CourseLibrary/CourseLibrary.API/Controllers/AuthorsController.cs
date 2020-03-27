@@ -23,13 +23,14 @@ namespace CourseLibrary.API.Controllers
         }
 
         //We can use HEAD request -- same as GET -- but without a response body -- just for information purposes
+        //We can also filter the results with query strings
         [HttpGet]
         [HttpHead]
-        public ActionResult<IEnumerable<AuthorDto>> GetAuthors()
+        public ActionResult<IEnumerable<AuthorDto>> GetAuthors(string mainCategory)
         {
-            var authorsFromRepo = _courseLibraryRepository.GetAuthors();
+            var authorsFromRepo = _courseLibraryRepository.GetAuthors(mainCategory);
 
-            //Map authors to Dto with Automapper        
+            //Map authors to Dto with Automapper         
             return Ok(_mapper.Map<IEnumerable<AuthorDto>>(authorsFromRepo)); 
         }
 
