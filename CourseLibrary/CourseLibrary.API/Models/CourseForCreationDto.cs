@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace CourseLibrary.API.Models
 {
-    [CourseValidTitleDesc]
+    [CourseValidTitleDesc(ErrorMessage ="Title must be different from the description")]
     public class CourseForCreationDto // : IValidatableObject
     {
-        [Required]
+        [Required(ErrorMessage ="Fill the title")]
         [MaxLength(100)]
         public string Title { get; set; }
          
