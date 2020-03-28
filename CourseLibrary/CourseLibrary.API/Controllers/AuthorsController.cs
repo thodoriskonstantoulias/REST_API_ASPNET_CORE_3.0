@@ -75,5 +75,12 @@ namespace CourseLibrary.API.Controllers
 
             return Ok();
         }
+
+        [HttpOptions]
+        public IActionResult GetAuthorOptions()
+        {
+            Response.Headers.Add("Allow", "GET,OPTIONS,POST");
+            return Ok();
+        }
     }
 }
