@@ -60,5 +60,20 @@ namespace CourseLibrary.API.Controllers
 
             return CreatedAtRoute("GetAuthor", new {authorId=authorToReturn.Id }, authorToReturn);
         }
+
+        //Route for inserting many authors at once
+        [HttpPost("bulk")]
+        public ActionResult<IEnumerable<AuthorDto>> CreateAuthorCollection(IEnumerable<AuthorForCreationDto> authorCollection)
+        {
+            var authorEntities = _mapper.Map<IEnumerable<Author>>(authorCollection);
+            foreach (var author in authorEntities)
+            {
+                _courseLibraryRepository.AddAuthor(author);
+            }
+
+            _courseLibraryRepository.Save();
+
+            return Ok();
+        }
     }
 }
