@@ -120,7 +120,22 @@ namespace CourseLibrary.API.Controllers
             var authorCourse = _courseLibraryRepository.GetCourse(authorId, courseId);
             if (authorCourse == null)
             {
-                return NotFound();
+                //Upserting
+                var courseDto = new CourseForUpdateDto();
+                patchDocument.ApplyTo(courseDto,ModelState);
+                //We validate the dto model before updating the table
+                if (!TryValidateModel(courseDto))
+                {
+                    return ValidationProblem(ModelState);
+                }
+
+                var courseToAdd = _mapper.Map<Course>(courseDto);
+                courseToAdd.Id = courseId;
+                _courseLibraryRepository.AddCourse(authorId, courseToAdd);
+                _courseLibraryRepository.Save();
+                var courseToReturn = _mapper.Map<CoursesDto>(courseToAdd);
+
+                return CreatedAtRoute("GetCourse", new { authorId = authorId, courseId = courseToReturn.Id }, courseToReturn);
             }
 
             var courseToPatch = _mapper.Map<CourseForUpdateDto>(authorCourse);
