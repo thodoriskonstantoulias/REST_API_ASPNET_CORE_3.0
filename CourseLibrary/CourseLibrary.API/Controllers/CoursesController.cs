@@ -154,5 +154,25 @@ namespace CourseLibrary.API.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{courseId}")]
+        public ActionResult DeleteCourseFromAuthor(Guid authorId, Guid courseId)
+        {
+            //Check if author exists
+            if (!_courseLibraryRepository.AuthorExists(authorId))
+            {
+                return NotFound();
+            }
+            var authorCourse = _courseLibraryRepository.GetCourse(authorId, courseId);
+            if (authorCourse == null)
+            {
+                return NotFound();
+            }
+
+            _courseLibraryRepository.DeleteCourse(authorCourse);
+            _courseLibraryRepository.Save();
+
+            return NoContent();
+        }
     }
 }
