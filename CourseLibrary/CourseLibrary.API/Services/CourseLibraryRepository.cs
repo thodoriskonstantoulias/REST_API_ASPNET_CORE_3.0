@@ -1,5 +1,6 @@
 ﻿using CourseLibrary.API.DbContexts;
 using CourseLibrary.API.Entities;
+using CourseLibrary.API.Helpers;
 using CourseLibrary.API.ResourceParameters;
 using System;
 using System.Collections.Generic;
@@ -123,7 +124,7 @@ namespace CourseLibrary.API.Services
             return _context.Authors.ToList<Author>();
         }
 
-        public IEnumerable<Author> GetAuthors(AuthorResourceParameters authorResource)
+        public PagedList<Author> GetAuthors(AuthorResourceParameters authorResource)
         {
             if (authorResource == null)
             {
@@ -149,7 +150,7 @@ namespace CourseLibrary.API.Services
             }
 
             //Adding pagination
-            return collection.Skip(authorResource.PageSize * (authorResource.PageNumber - 1)).Take(authorResource.PageSize).ToList();
+            return PagedList<Author>.Create(collection, authorResource.PageNumber, authorResource.PageSize);
         }
 
         public IEnumerable<Author> GetAuthors(IEnumerable<Guid> authorIds)

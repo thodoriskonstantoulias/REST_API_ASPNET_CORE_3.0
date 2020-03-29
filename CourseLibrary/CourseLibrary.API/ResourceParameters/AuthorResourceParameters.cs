@@ -9,7 +9,7 @@ namespace CourseLibrary.API.ResourceParameters
     {
         public string MainCategory { get; set; }
         public string SearchQuery { get; set; }
-        public int PageNumber { get; set; }
+        public int PageNumber { get; set; } = 1;
 
         const int maxPageSize = 20;
         private int _pageSize = 10;
